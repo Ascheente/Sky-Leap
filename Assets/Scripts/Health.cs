@@ -50,7 +50,13 @@ public class Health : MonoBehaviour
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             Vector2 dir = collision.relativeVelocity.normalized;
-            health--;        }
+            health--; 
+        }
+        if (collision.gameObject.tag.Equals("Deadly"))
+        {
+            Vector2 dir = collision.relativeVelocity.normalized;
+            health--;        
+        }
         if (health <= 0)
         {
             Death();

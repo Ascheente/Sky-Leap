@@ -71,10 +71,12 @@ public class PlayerController : MonoBehaviour
         {
             isWallSliding = true;
             jumpTime = Time.time + wallJumpTime;
+            animator.SetBool("Slide", true);
         }
         else if (jumpTime < Time.time)
         {
             isWallSliding = false;
+            animator.SetBool("Slide", false);
         }
 
         if (isWallSliding)
@@ -169,12 +171,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 originalVelocity = rb.velocity;
         isDashing = true;
+        this.tag = "Dashing";
         canDash = false;
         rb.gravityScale = 0;
         rb.velocity = Vector2.zero;
         animator.SetBool("Dash", true);
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        this.tag = "Player";
         animator.SetBool("Dash", false);
         rb.velocity = originalVelocity;
         rb.gravityScale = normalGravity;

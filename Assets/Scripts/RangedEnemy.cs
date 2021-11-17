@@ -74,4 +74,12 @@ public class RangedEnemy : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position,range);
     }
+    
+    void OnCollisionEnter2D(Collision2D col )
+    {
+        if (col.collider.tag == "Dashing" )
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

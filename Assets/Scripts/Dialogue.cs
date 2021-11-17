@@ -5,36 +5,67 @@ using UnityEngine;
 public class Dialogue : MonoBehaviour
 {
     public Sprite profile;
-    public string speechTxt;
+    public string[] speechTxt;
     public string actorName;
 
     public LayerMask playerLayer;
     public float radious;
     private DialogueControl dc;
 
+    //detection 
+    private bool playerInRange;
 
-    private void start ()
+
+
+    private void Start()
     {
         dc = FindObjectOfType<DialogueControl>();
+        playerInRange = false;
     }
 
     private void FixedUpdate()
     {
-        Interact();
+        //Interact(); 
     }
-    public void Interact()
-    {
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, radious, playerLayer);
 
-        if(hit != null)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && playerInRange)
         {
             dc.Speech(profile, speechTxt, actorName);
         }
+    }
 
-    }
-    private void OnDrawGizmosSelected()
+    //
+
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        Gizmos.DrawWireSphere(transform.position, radious);
+        if (collider.gameObject.tag == "Player")
+        {
+            playerInRange = true;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D collider)   
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            playerInRange = false;
+        }
+    }
+   // public void Interact()
+   // {
+      //  Collider2D hit = Physics2D.OverlapCircle(transform.position, radious, playerLayer);
+
+     //   if(hit != null)
+      //  {
+//            dc.Speech(profile, speechTxt, actorName);
+        //}
+
+   // }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawWireSphere(transform.position, radious);
+    //}
 
 }
