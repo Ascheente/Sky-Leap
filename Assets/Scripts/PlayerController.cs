@@ -43,6 +43,15 @@ public class PlayerController : MonoBehaviour
     bool isWallSliding = false;
     RaycastHit2D WallCheckHit;
     float jumpTime;
+
+    //variaveis para o Spin attack
+    [SerializeField]
+    float spinRange;
+    [SerializeField]
+    GameObject spinPoint;
+
+    public LayerMask enemyLayer;
+
     void Start() 
     {
         extraJumps = extraJumpValue;
@@ -165,6 +174,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("SecondJump", false);
         }
+
+        // Spin attack
+        if (Input.GetKey(KeyCode.Space) )
+        {
+            StartCoroutine(Spin());
+        }
     }   
 
     IEnumerator Dash(float dashDuration, float dashCooldown)
@@ -186,6 +201,29 @@ public class PlayerController : MonoBehaviour
         canDash = true;
 
     }
+
+    IEnumerator Spin()
+    {
+        Collider2D[] Enemies = Physics2D.OverlapCircleAll(spinPoint.transform.position, spinRange, enemyLayer);
+
+        foreach (Collider2D enemy in Enemies)
+        {
+            if (enemy.CompareTag("Enemy"))
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
+
+        animator.SetTrigger("Spin");
+
+        yield return new WaitForSeconds(0.6f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(spinPoint.transform.position, spinRange);
+    }
+
     void Flip()
     {
         facingRight = !facingRight;
