@@ -54,7 +54,7 @@ public class RangedEnemy : MonoBehaviour
             }
             if(detected)
             {
-                gun.transform.up = direction;
+                gun.transform.right = direction;
                 if(Time.time > nextTimeToFire)
                 {
                     nextTimeToFire = Time.time+1/fireRate;

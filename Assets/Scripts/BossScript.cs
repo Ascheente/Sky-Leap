@@ -90,7 +90,7 @@ public class BossScript : MonoBehaviour
             this.tag = "Untagged";
             GetComponent<SpriteRenderer>().sprite = sprites[1];
             vulnerable = true;
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             this.tag = "Deadly";
             GetComponent<SpriteRenderer>().sprite = sprites[0];
             vulnerable = false;

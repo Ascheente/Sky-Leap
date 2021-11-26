@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     RaycastHit2D WallCheckHit;
     float jumpTime;
 
+    public Collider2D jimpsiCol;
+
     //variaveis para o Spin attack
     [SerializeField]
     float spinRange;
@@ -124,6 +126,11 @@ public class PlayerController : MonoBehaviour
         //{
         //    direction = moveInput;
         //}
+
+        if(Input.GetKeyDown(KeyCode.J))
+        {  
+            extraJumpValue = 40;
+        }
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && canDash == true)
         {

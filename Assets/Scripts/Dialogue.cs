@@ -12,6 +12,8 @@ public class Dialogue : MonoBehaviour
     public float radious;
     private DialogueControl dc;
 
+    private bool canTalk = true;
+
     //detection 
     private bool playerInRange;
 
@@ -30,9 +32,10 @@ public class Dialogue : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && playerInRange)
+        if (Input.GetKeyDown(KeyCode.Space) && playerInRange && canTalk)
         {
             dc.Speech(profile, speechTxt, actorName);
+            canTalk = false;
         }
     }
 

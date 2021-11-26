@@ -21,4 +21,13 @@ public class DialogueTrigger : MonoBehaviour
         
     }
 
+    void OnTriggerExit2D(Collider2D col )
+    {
+        if (col.tag == "Player")
+        {
+            Destroy(this);
+        }
+        
+    }
+
 }

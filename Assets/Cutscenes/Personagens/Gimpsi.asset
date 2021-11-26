@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1699bf2702a03344bf3f3bc62d3084f, type: 3}
   m_Name: Gimpsi
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: 969ebd62ffc72ee438f18b65d13c1fc8, type: 3}
+  _sprite: {fileID: 21300000, guid: 3a77c9fce9de9754a8aea8d403bf01ca, type: 3}
