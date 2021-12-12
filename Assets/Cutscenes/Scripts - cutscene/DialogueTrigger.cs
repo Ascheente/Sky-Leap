@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public DialogueContainer dialogueContainer;
     public GameObject cutSceneManager;
+    public GameObject soundManager;
     void Start()
     {
         //DialogueManager.Instance.StartConversation(dialogueContainer);        
@@ -25,6 +26,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (col.tag == "Player")
         {
+            soundManager.SetActive(true);
             Destroy(this);
         }
         

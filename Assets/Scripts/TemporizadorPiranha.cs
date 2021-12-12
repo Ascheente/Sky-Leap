@@ -16,15 +16,15 @@ public class TemporizadorPiranha : MonoBehaviour
         
     }
 
-    void OnCollisionEnter2D(Collision2D col )
+    void OnTriggerEnter2D(Collider2D col )
     {
-        if (col.collider.tag == "Ground")
+        if (col.tag == "Ground")
         {
             Destroy(this.gameObject);
         }
-        else if (col.collider.tag == "Player")
-        {
-            Destroy(this.gameObject);
-        }
+        // else if (col.tag == "Player")
+        // {
+        //     Destroy(this.gameObject);
+        // }
     }
 }

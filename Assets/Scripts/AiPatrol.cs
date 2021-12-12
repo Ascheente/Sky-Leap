@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AiPatrol : MonoBehaviour
 {
-    public float walkSpeed, range, timeBtwShoots;
+    public float walkSpeed, range, timeBtwShoots, shootSpeed;
     private float distToPlayer;
 
     [HideInInspector]
     public bool mustPatrol;
-    public bool mustTurn;
+    public bool mustTurn, canShoot;
     public Rigidbody2D rb;
     public Transform groundCheckPos;
     public LayerMask groundLayer;
@@ -25,6 +25,7 @@ public class AiPatrol : MonoBehaviour
     void Start()
     {
         mustPatrol = true;
+        canShoot = true;
     }
 
     // Update is called once per frame
@@ -46,7 +47,12 @@ public class AiPatrol : MonoBehaviour
 
             mustPatrol = false;
             rb.velocity = Vector2.zero;
-            StartCoroutine(Shoot());
+
+            if (canShoot)
+            {
+                StartCoroutine(Shoot());
+            }
+            //StartCoroutine(Shoot());
         }
         else
         {
@@ -70,6 +76,7 @@ public class AiPatrol : MonoBehaviour
         }
 
         animator.SetBool("Patrulhando", true);
+        animator.SetBool("Atirando", false);
 
         rb.velocity = new Vector2(walkSpeed * Time.fixedDeltaTime, rb.velocity.y);
     }
@@ -84,7 +91,13 @@ public class AiPatrol : MonoBehaviour
 
     IEnumerator Shoot()
     {
+        canShoot = false;
+        animator.SetBool("Atirando", true);
         yield return new WaitForSeconds (timeBtwShoots);
         GameObject newBullet = Instantiate(bullet, shootPos.position, Quaternion.identity);
+        
+        newBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(shootSpeed * walkSpeed * Time.fixedDeltaTime, 0f);
+        canShoot = true;
+
     }
 }

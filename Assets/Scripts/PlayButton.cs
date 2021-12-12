@@ -18,6 +18,10 @@ public class PlayButton : MonoBehaviour
     {
         MyLoading.LoadLevel("Menu");
     }
+    public void credits()
+    {
+        MyLoading.LoadLevel("Creditos");
+    }
    
 
 }

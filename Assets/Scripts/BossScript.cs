@@ -23,10 +23,13 @@ public class BossScript : MonoBehaviour
     public bool vulnerable;
     bool dead;
 
+    public Animator anim;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine ("Boss");
+        anim.SetBool("Shooting", false);
     }
 
     // Update is called once per frame
@@ -51,8 +54,10 @@ public class BossScript : MonoBehaviour
             //fIRST MOVE
             while (transform.position.x!=spots[0].position.x)
             {
+                anim.SetBool("Walking", true);
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(spots[0].position.x, transform.position.y), speed);
                 yield return null;
+                anim.SetBool("Walking", false);
             }
 
             transform.localScale = new Vector2(-1,1);
@@ -61,19 +66,23 @@ public class BossScript : MonoBehaviour
             int i = 0;
             while ( i < 6 )
             {
+                anim.SetBool("Shooting", true);
                 GameObject bullet = (GameObject) Instantiate(projectile, holes[Random.Range(0,2)].position, Quaternion.identity);
                 bullet.GetComponent<Rigidbody2D>().velocity = Vector2.left*5;
 
                 i++;
                 yield return new WaitForSeconds (0.7f);
+                anim.SetBool("Shooting", false);
             }
 
             //Second move
             GetComponent<Rigidbody2D>().isKinematic = true;
             while(transform.position != spots[2].position)
             {
+                anim.SetBool("Flying", true);
                 transform.position = Vector2.MoveTowards(transform.position, spots[2].position, speed);
                 yield return null;
+                anim.SetBool("Flying", false);
             }
 
             playerPos = player.transform.position;
@@ -108,8 +117,10 @@ public class BossScript : MonoBehaviour
 
             while (transform.position.x!=temp.position.x)
             {
+                anim.SetBool("Walking", true);
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(temp.position.x, transform.position.y), speed);
                 yield return null;
+                anim.SetBool("Walking", false);
             }
         }
     }

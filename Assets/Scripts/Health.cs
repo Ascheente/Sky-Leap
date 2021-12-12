@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int health;
+    public static int health;
     public int numberOfHearts;
 
     public Transform player;
@@ -14,6 +14,11 @@ public class Health : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+
+    void Start()
+    {
+        health = numberOfHearts;
+    }
 
     void Update()
     {
@@ -64,6 +69,14 @@ public class Health : MonoBehaviour
         if (collision.collider.tag.Equals("DeathZone"))
         {
             Death();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            health--;
         }
     }
 
